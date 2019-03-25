@@ -29,6 +29,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
 
     @Override
     public void loadBeanDefinitions(String location) throws Exception {
+        // 获取文件的xml解析器
         InputStream inputStream = new FileInputStream(location);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = factory.newDocumentBuilder();
@@ -38,6 +39,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
     }
 
     private void parseBeanDefinitions(Element root) throws Exception {
+        // 遍历beans下的bean标签
         NodeList nodes = root.getChildNodes();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -49,6 +51,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
     }
 
     private void parseBeanDefinition(Element ele) throws Exception {
+        // 将标签中id与class保存到BeanDefinition中
         String name = ele.getAttribute("id");
         String className = ele.getAttribute("class");
         BeanDefinition beanDefinition = new BeanDefinition();
@@ -58,6 +61,7 @@ public class XmlBeanDefinitionReader implements BeanDefinitionReader {
     }
 
     private void processProperty(Element ele, BeanDefinition beanDefinition) {
+        // 将标签下的属性保存到PropertyValues
         NodeList propertyNodes = ele.getElementsByTagName("property");
         for (int i = 0; i < propertyNodes.getLength(); i++) {
             Node propertyNode = propertyNodes.item(i);
